@@ -1,0 +1,95 @@
+{
+	"name": "Vimium C",
+	"@time": "2024/5/3 11:34:23",
+	"time": 1714703663002,
+	"environment": {
+		"extension": "1.99.994",
+		"platform": "win",
+		"chromium": 124
+	},
+	"allBrowserUrls": true,
+	"exclusionRules": [
+		{
+			"passKeys": "",
+			"pattern": ":https://mail.google.com/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://remotedesktop.google.com/"
+		},
+		{
+			"passKeys": "",
+			"pattern": "^https?://172\\.24\\.52\\.86:50001/"
+		},
+		{
+			"passKeys": "",
+			"pattern": "^https?://localhost:50001/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://www.pcjs.org/"
+		},
+		{
+			"passKeys": "",
+			"pattern": "^https?://www\\.falstad\\.com/"
+		},
+		{
+			"passKeys": "",
+			"pattern": "^https?://pc882\\.local:85/"
+		},
+		{
+			"passKeys": "",
+			"pattern": "^https?://localhost/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://infinitemac.org/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://game-ac.com/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://kdata1.com/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://tetr.io/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://tetrio.io/"
+		},
+		{
+			"passKeys": "",
+			"pattern": "^https?://www\\.visual6502\\.org/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://38462.play.unityroom.com/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://www.dosgamesarchive.com/"
+		},
+		{
+			"passKeys": "",
+			"pattern": ":https://word-edit.officeapps.live.com/"
+		}
+	],
+	"keyLayout": 2,
+	"keyMappings": [
+		"#!no-check",
+		"unmap J",
+		"unmap K",
+		"unmap H",
+		"unmap L",
+		"map J goBack",
+		"map K goForward",
+		"map H previousTab",
+		"map L nextTab",
+		""
+	],
+	"vimSync": true
+}
