@@ -65,4 +65,7 @@ sed -i -e 's/^xftfont DejaVu/xftfont/' ~/.conkyrc
 sudo sed -i -e 's/^xftfont DejaVu/xftfont/' /etc/skel/.conkyrc
 
 ### zzzfmの日本語化 ###
-#$ sudo cp ja.mo /usr/share/locale/ja/LC_MESSAGES/zzzfm.mo
+wget ponzu840w.jp/env/for_use_antix-contribs_zzzfmpot_ja.po -O zzzfm_ja.po
+msgfmt -c -o zzzfm.mo zzzfm_ja.po
+sudo cp zzzfm.mo /usr/share/locale/ja/LC_MESSAGES/zzzfm.mo
+rm zzzfm_ja.po zzzfm.mo

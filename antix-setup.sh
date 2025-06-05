@@ -25,6 +25,8 @@ function config_dq () {
 #gtk-can-change-accels = 1
 #gtk-theme-name="Mist" # 若干古めかしいが、境界線がくっきりしている
 #EOS
+# 未来的で可愛いカーソル
+config ~/.config/gtk-3.0/settings.ini gtk-cursor-theme-name "Breeze-Show"
 
 ### 壁紙を設定 ###
 if [ "$THEME" = 'laptop' ]; then
