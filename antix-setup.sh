@@ -204,11 +204,6 @@ str='if [ -d "$HOME/.local/bin" ]; then ; PATH="$HOME/.local/bin:$PATH" ; fi'
 if ! grep -q '/.local/bin' ~/.bashrc; then
   echo "$str" >>~/.bashrc
 fi
-# コマンドラインからクリップボードを使うエイリアス
-str="alias clip='xsel --clipboard --input'"
-if ! grep -q 'alias clip' ~/.bashrc; then
-  echo "$str" >>~/.bashrc
-fi
 
 ### .desktop-session/startup ###
 # クリップボードマネージャの起動有効化
