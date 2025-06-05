@@ -198,5 +198,21 @@ else
 fi
 echo "$str" >>~/.vimrc_local
 
+### .bashrc ###
+# $HOME/.local/bin を PATH に追加
+str='if [ -d "$HOME/.local/bin" ]; then ; PATH="$HOME/.local/bin:$PATH" ; fi'
+if ! grep -q '/.local/bin' ~/.bashrc; then
+  echo "$str" >>~/.bashrc
+fi
+# コマンドラインからクリップボードを使うエイリアス
+str="alias clip='xsel --clipboard --input'"
+if ! grep -q 'alias clip' ~/.bashrc; then
+  echo "$str" >>~/.bashrc
+fi
+
+### .desktop-session/startup ###
+# クリップボードマネージャの起動有効化
+sed -i "s/#clipit/clipit/" ~/.desktop-session/startup
+
 #icewm --restart
 /usr/local/lib/desktop-session/desktop-session-restart
