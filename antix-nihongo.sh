@@ -55,10 +55,10 @@ if ! grep -q 'gnome-256color' /etc/skel/.bashrc; then
   echo "$str" | sudo tee -a /etc/skel/.bashrc
 fi
 
-### キーレイアウト切り替えをAlt+ShiftからWin+Spaceに ###
+### キーレイアウト切り替えをAlt+ShiftからRAlt+RShiftに ###
 # ウィンドウ切り替えとの重複回避
-sudo sed -i 's/grp:.*,/grp:win_space_toggle,/' /etc/default/keyboard
-sudo sed -i 's/grp:.*\"/grp:win_space_toggle\"/' /etc/default/keyboard
+sudo sed -i 's/grp:.*,/grp:ralt_rshift_toggle,/' /etc/default/keyboard
+sudo sed -i 's/grp:.*\"/grp:ralt_rshift_toggle\"/' /etc/default/keyboard
 
 ### 時計の文字化け解消 ###
 sed -i -e 's/^xftfont DejaVu/xftfont/' ~/.conkyrc
