@@ -200,7 +200,7 @@ echo "$str" >>~/.vimrc_local
 
 ### .bashrc ###
 # $HOME/.local/bin を PATH に追加
-str='if [ -d "$HOME/.local/bin" ]; then ; PATH="$HOME/.local/bin:$PATH" ; fi'
+str='if [ -d "$HOME/.local/bin" ]; then PATH="$HOME/.local/bin:$PATH"; fi'
 if ! grep -q '/.local/bin' ~/.bashrc; then
   echo "$str" >>~/.bashrc
 fi
