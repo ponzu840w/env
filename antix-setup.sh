@@ -137,6 +137,8 @@ config-pref "KeySysWorkspacePrevTakeWin"  "Ctrl+Super+Alt+Left"
 if ! grep -q 'skippy-xd' ~/.icewm/keys; then
   echo 'key "Super+Tab" skippy-xd' >>~/.icewm/keys
 fi
+# Win+Spaceでアプリ検索
+sed -i 's/Ctrl+Space/Super+Space/g' ~/.icewm/keys
 
 ### zzzFM 設定 ###
 sed -i '/single_click/d' ~/.config/zzzfm/session* # シングルクリックを許さない
