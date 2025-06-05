@@ -208,6 +208,14 @@ fi
 ### .desktop-session/startup ###
 # クリップボードマネージャの起動有効化
 sed -i "s/#clipit/clipit/" ~/.desktop-session/startup
+# 白背景だとタスクトレイアイコンがほぼ見えないので適当に変更"
+old='/usr/share/icons/papirus-antix/24x24/panel/clipit-trayicon-panel.png'
+bak=${old}.bak
+new='/usr/share/icons/papirus-antix/24x24/categories/clipit-trayicon.png'
+if [ ! -e "$bak" ]; then
+  sudo mv $old $bak
+  sudo ln -s $new $old
+fi
 
 #icewm --restart
 /usr/local/lib/desktop-session/desktop-session-restart
