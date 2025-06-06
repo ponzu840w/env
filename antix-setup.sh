@@ -220,6 +220,9 @@ if ! grep -q '/.local/bin' ~/.bashrc; then
   echo "$str" >>~/.bashrc
 fi
 
+### .inputrc ###
+echo 'set mark-symlinked-directories on' >>~/.inputrc
+
 ### .desktop-session/startup ###
 # クリップボードマネージャの起動有効化
 sed -i "s/#clipit/clipit/" ~/.desktop-session/startup
