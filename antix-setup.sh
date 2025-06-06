@@ -183,9 +183,10 @@ else
 fi
 sed -i -e "/^colour_scheme/c colour_scheme=${str}" ~/.config/roxterm.sourceforge.net/Global
 
-### .vimrc ###
-mkdir -p ~/.vimbackupfiles
+### VIM ###
 sudo apt-get -y install vim-gtk3
+# .vimrc
+mkdir -p ~/.vimbackupfiles
 wget http://ponzu840w.jp/env/.vimrc -O ~/.vimrc
 cat <<EOS >~/.vimrc_local
 set backupdir-=.
@@ -197,6 +198,18 @@ else
   str='colorscheme evening'
 fi
 echo "$str" >>~/.vimrc_local
+# デスクトップエントリからターミナル版vimを正常に起動させる
+cat <<EOS >~/.local/share/applications/term_vim.sh
+x-terminal-emulator -e "bash -c \"export TERM=gnome-256color;vim $1\""
+EOS
+cat <<EOS >~/.local/share/applications/ vim-usercreated-0.desktop
+[Desktop Entry]
+Encoding=UTF-8
+Name=Terminal-Vim
+Exec=/home/ponzu840w/.local/share/applications/term_vim.sh
+MimeType=text/plain
+StartupWMClass=roxterm
+EOS
 
 ### .bashrc ###
 # $HOME/.local/bin を PATH に追加
