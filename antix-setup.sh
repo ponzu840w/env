@@ -200,9 +200,9 @@ fi
 echo "$str" >>~/.vimrc_local
 # デスクトップエントリからターミナル版vimを正常に起動させる
 cat <<EOS >~/.local/share/applications/term_vim.sh
-x-terminal-emulator -e "bash -c \"export TERM=gnome-256color;vim $1\""
+x-terminal-emulator -e "bash -c \"export TERM=gnome-256color;vim \$1\""
 EOS
-cat <<EOS >~/.local/share/applications/ vim-usercreated-0.desktop
+cat <<EOS >~/.local/share/applications/vim-usercreated-0.desktop
 [Desktop Entry]
 Encoding=UTF-8
 Name=Terminal-Vim
@@ -210,6 +210,8 @@ Exec=/home/ponzu840w/.local/share/applications/term_vim.sh
 MimeType=text/plain
 StartupWMClass=roxterm
 EOS
+# テキストを開くデフォルトをvimにする
+sed -i 's/leafpad/vim-usercreated-0/' ~/.config/mimeapps.list
 
 ### .bashrc ###
 # $HOME/.local/bin を PATH に追加
