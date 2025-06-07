@@ -111,7 +111,6 @@ prog "skippy-xd" /usr/share/icons/papirus-antix/48x48/actions/dialog-rows-and-co
 prog "ROXTerm " /usr/share/icons/papirus-antix/24x24/apps/roxterm.png roxterm
 prog "ファイルマネージャー" /usr/share/icons/papirus-antix/48x48/apps/file-manager.png desktop-defaults-run -fm
 prog "ウェブブラウザー" /usr/share/icons/papirus-antix/48x48/apps/web-browser.png desktop-defaults-run -b
-prog "antiX Cloud" /usr/share/icons/papirus-antix/24x24/places/folder-red-meocloud.png antix-cloud
 EOS
 
 ### ログイン画面設定 ###
