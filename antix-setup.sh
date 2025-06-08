@@ -147,6 +147,7 @@ mkdir -p ~/.config/roxterm.sourceforge.net/Colours
 cat <<EOS >~/.config/roxterm.sourceforge.net/Colours/solarized-light
 [roxterm colour scheme]
 foreground=#65657b7b8383
+bold=#65657b7b8383
 background=#fdfdf6f6e3e3
 0=#eeeee8e8d5d5
 1=#dcdc32322f2f
