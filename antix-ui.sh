@@ -1,4 +1,8 @@
 #!/bin/bash
+# antix-ui.sh
+# antiXのUIというか使い勝手をカスタマイズするスクリプト
+# apt installが必要なヘビーなカスタマイズはantix-app.shに分離してある
+
 ### 選べるテーマ！ ###
 #THEME='black'   # 普通のモニタならかっこいい黒系
 THEME='laptop'   # ヘボいモニタでも見やすい白系
@@ -25,8 +29,8 @@ function config_dq () {
 #gtk-can-change-accels = 1
 #gtk-theme-name="Mist" # 若干古めかしいが、境界線がくっきりしている
 #EOS
-# 未来的で可愛いカーソル
-config ~/.config/gtk-3.0/settings.ini gtk-cursor-theme-name "Breeze-Show"
+# 未来的で可愛いカーソル ... GUI操作でしか変更できない？
+#config ~/.config/gtk-3.0/settings.ini gtk-cursor-theme-name "Breeze-Show"
 
 ### 壁紙を設定 ###
 if [ "$THEME" = 'laptop' ]; then
@@ -184,7 +188,17 @@ fi
 sed -i -e "/^colour_scheme/c colour_scheme=${str}" ~/.config/roxterm.sourceforge.net/Global
 
 ### VIM ###
-sudo apt-get -y install vim-gtk3
+# vimがroxtermでおかしくなるのを防ぐ bashrc
+str="
+# vimがroxtermでおかしくなるのを防ぐ
+export TERM=gnome-256color
+"
+if ! grep -q 'gnome-256color' ~/.bashrc; then
+  echo "$str" >>~/.bashrc
+fi
+if ! grep -q 'gnome-256color' /etc/skel/.bashrc; then
+  echo "$str" | sudo tee -a /etc/skel/.bashrc
+fi
 # .vimrc
 mkdir -p ~/.vimbackupfiles
 wget http://ponzu840w.jp/env/.vimrc -O ~/.vimrc
@@ -221,6 +235,7 @@ if ! grep -q '/.local/bin' ~/.bashrc; then
 fi
 
 ### .inputrc ###
+# シンボリックリンクのディレクトリもTAB一発でhoge/まで補完
 echo 'set mark-symlinked-directories on' >>~/.inputrc
 
 ### .desktop-session/startup ###
@@ -234,6 +249,15 @@ if [ ! -e "$bak" ]; then
   sudo mv $old $bak
   sudo ln -s $new $old
 fi
+
+### CAPS LOCKキーをControlキーに変更する ###
+sudo cat <<'EOF' | sudo tee /etc/udev/hwdb.d/10-killcaps.hwdb
+# Caps Lock -> Control
+evdev:atkbd:*
+ KEYBOARD_KEY_3a=leftctrl
+EOF
+sudo udevadm hwdb --update
+sudo udevadm trigger
 
 #icewm --restart
 /usr/local/lib/desktop-session/desktop-session-restart

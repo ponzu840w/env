@@ -2,10 +2,10 @@
 ### 設定ファイルのごみ箱 ###
 mkdir -p ~/.oldfiles
 
-### antixリポジトリの認証が死んでるのでキーを強制インストール ###
+### antixリポジトリの認証が死んでるのでキーを強制インストール (23.1)###
 # https://www.antixforum.com/forums/topic/expired-gpg-key/
-sudo apt-get update --allow-insecure-repositories
-yes | sudo apt-get install antix-archive-keyring --allow-unauthenticated
+#sudo apt-get update --allow-insecure-repositories
+#yes | sudo apt-get install antix-archive-keyring --allow-unauthenticated
 
 ### もし上記だけでもダメだったら認証を無効化（アブナイよ！） ###
 #cp -n /etc/apt/sources.list.d/antix.list ~/.oldfiles/antix.list.old
@@ -41,18 +41,6 @@ if ! grep -q 'GTK_IM_MODULE' ~/.desktop-session/desktop-session.conf; then
 fi
 if ! grep -q 'GTK_IM_MODULE' /etc/skel/.desktop-session/desktop-session.conf; then
   echo "$str" | sudo tee -a /etc/skel/.desktop-session/desktop-session.conf
-fi
-
-### vimがroxtermでおかしくなるのを防ぐ bashrc ###
-str="
-# vimがroxtermでおかしくなるのを防ぐ
-export TERM=gnome-256color
-"
-if ! grep -q 'gnome-256color' ~/.bashrc; then
-  echo "$str" >>~/.bashrc
-fi
-if ! grep -q 'gnome-256color' /etc/skel/.bashrc; then
-  echo "$str" | sudo tee -a /etc/skel/.bashrc
 fi
 
 ### キーレイアウト切り替えをAlt+ShiftからRAlt+RShiftに ###
