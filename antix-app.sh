@@ -7,6 +7,19 @@ sudo apt upgrade -y
 ### VIM ###
 # デフォルトのvimは簡素すぎるのでパーフェクトなvimをインストール
 sudo apt-get -y install vim-gtk3
+# .vimrc
+mkdir -p ~/.vimbackupfiles
+wget http://ponzu840w.jp/env/.vimrc -O ~/.vimrc
+cat <<EOS >~/.vimrc_local
+set backupdir-=.
+set backupdir^=~/.vimbackupfiles
+EOS
+if [ "$THEME" = 'laptop' ]; then
+  str='colorscheme peachpuff'
+else
+  str='colorscheme evening'
+fi
+echo "$str" >>~/.vimrc_local
 
 ### ROXterm強制フォーカスデーモン ###
 # ROXtermの2つ目以降のウィンドウがファーカスなしで起動する場合があるので

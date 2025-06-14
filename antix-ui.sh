@@ -199,19 +199,6 @@ fi
 if ! grep -q 'gnome-256color' /etc/skel/.bashrc; then
   echo "$str" | sudo tee -a /etc/skel/.bashrc
 fi
-# .vimrc
-mkdir -p ~/.vimbackupfiles
-wget http://ponzu840w.jp/env/.vimrc -O ~/.vimrc
-cat <<EOS >~/.vimrc_local
-set backupdir-=.
-set backupdir^=~/.vimbackupfiles
-EOS
-if [ "$THEME" = 'laptop' ]; then
-  str='colorscheme peachpuff'
-else
-  str='colorscheme evening'
-fi
-echo "$str" >>~/.vimrc_local
 # デスクトップエントリからターミナル版vimを正常に起動させる
 cat <<EOS >~/.local/share/applications/term_vim.sh
 x-terminal-emulator -e "bash -c \"export TERM=gnome-256color;vim \$1\""
