@@ -203,6 +203,7 @@ fi
 cat <<EOS >~/.local/share/applications/term_vim.sh
 x-terminal-emulator -e "bash -c \"export TERM=gnome-256color;vim \$1\""
 EOS
+chmod +x ~/.local/share/applications/term_vim.sh
 cat <<EOS >~/.local/share/applications/vim-usercreated-0.desktop
 [Desktop Entry]
 Encoding=UTF-8
