@@ -1,3 +1,5 @@
+" 対応環境: Windows(95以降), Linux, macOSのvim/neovim
+
 "---------
 " .vimrc_local
 "---------
@@ -27,7 +29,9 @@ set fileencoding=utf-8
 "---------
 " ~/.vimtmp/ を生成ファイルの保存先とする
 " このディレクトリは事前に生成しておくこと
-let vimtmp = '~/.vimtmp//'
+if has('eval')
+  let vimtmp = '~/.vimtmp//'
+endif
 
 " undo
 if has('persistent_undo')
@@ -37,12 +41,16 @@ endif
 
 " swap
 set directory -=.
-exe 'set directory^=' .. vimtmp
+if has('eval')
+  exe 'set directory^=' .. vimtmp
+endif
 set swapfile
 
 " backup
 set backupdir-=.
-exe 'set backupdir^=' .. vimtmp
+if has('eval')
+  exe 'set backupdir^=' .. vimtmp
+endif
 set backup
 
 "---------
