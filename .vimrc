@@ -9,9 +9,11 @@
 "  colorscheme vim
 "endif
 "set shell=pwsh
-"set backupdir-=.
 "set backupdir^=D:/5.バックアップ/vim/vimbackupfiles//
 "set nocursorline
+
+"" antiX Linux
+"colorscheme peachpuff
 
 "---------
 "---------
@@ -23,10 +25,24 @@ set fileencoding=utf-8
 "---------
 "  生成ファイル
 "---------
-if v:version >=705
+" ~/.vimtmp/ を生成ファイルの保存先とする
+" このディレクトリは事前に生成しておくこと
+let vimtmp = '~/.vimtmp//'
+
+" undo
+if has('persistent_undo')
+  exe 'set undodir=' .. vimtmp
   set undofile
 endif
+
+" swap
+set directory -=.
+exe 'set directory^=' .. vimtmp
 set swapfile
+
+" backup
+set backupdir-=.
+exe 'set backupdir^=' .. vimtmp
 set backup
 
 "---------
@@ -92,7 +108,9 @@ set guioptions-=m     " メニューバーを非表示にする
 set showmatch         " 対応する括弧を強調表示
 set title             " タイトルを表示
 set number            " 行番号の表示
-syntax on             " シンタックスハイライト
+if has('syntax')
+  syntax on           " シンタックスハイライト
+endif
 "set nofoldenable     " 検索にマッチした行以外を折りたたむ(フォールドする)機能
 "hi Comment ctermfg=3 " コメントの色を水色
 "set nrformats=       " すべての数を10進数として扱う
