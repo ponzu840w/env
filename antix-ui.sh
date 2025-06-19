@@ -214,6 +214,15 @@ StartupWMClass=roxterm
 EOS
 # テキストを開くデフォルトをvimにする
 sed -i 's/leafpad/vim-usercreated-0/' ~/.config/mimeapps.list
+# .vimrc
+mkdir -p ~/.vimtmp
+wget http://ponzu840w.jp/env/.vimrc -O ~/.vimrc
+if [ "$THEME" = 'laptop' ]; then
+  str='colorscheme peachpuff'
+else
+  str='colorscheme evening'
+fi
+echo "$str" >~/.vimrc_local
 
 ### .bashrc ###
 # $HOME/.local/bin を PATH に追加
