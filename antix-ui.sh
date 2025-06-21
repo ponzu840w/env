@@ -92,6 +92,10 @@ if [ "$THEME" = 'laptop' ]; then
   config_dq ${tmpath}/default.theme ColorActiveTaskBarApp "#BBBBBB"
   config_dq ${tmpath}/default.theme ColorNormalBorder "#dddddd"
   config_dq ${tmpath}/default.theme ColorActiveBorder "#dddddd"
+
+  # ダイアログの内容の色
+  config_dq ${tmpath}/default.theme ColorLabelText "black"
+  config_dq ${tmpath}/default.theme ColorDialog "#DDD5D5"
 fi
 
 ### iceWM追加設定 ###
