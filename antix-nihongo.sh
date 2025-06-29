@@ -63,3 +63,5 @@ wget ponzu840w.jp/env/for_use_antix-development_antix-zzz-extensions_ja.po -O an
 msgfmt -c -o antix-zzz-extensions.mo antix-zzz-extensions_ja.po
 sudo cp antix-zzz-extensions.mo /usr/share/locale/ja/LC_MESSAGES/antix-zzz-extensions.mo
 rm antix-zzz-extensions_ja.po antix-zzz-extensions.mo
+
+/usr/local/lib/desktop-session/desktop-session-restart
