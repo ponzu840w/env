@@ -4,9 +4,22 @@
 <body>
 
 <h1>環境構築虎の巻</h1>
-<h2>antix</h2>
 
-<h2>firefox拡張</h2>
+<h2>Vim</h2>
+<p>
+  <a href='http://ponzu840w.jp/env/.vimrc' download>.vimrc</a>
+</p>
+
+<pre>
+<code>
+cd ~
+wget ponzu840w.jp/env/.vimrc
+mkdir -p .vimtmp
+</code>
+</pre>
+
+<h2>ブラウザ</h2>
+<h3>Firefox拡張</h3>
 <p>
   <a href='https://addons.mozilla.org/firefox/downloads/file/4210117/vimium_c-latest.xpi'>
   vimium-c
@@ -21,9 +34,34 @@
   </a>
 </p>
 
-<h2>ブラウザ拡張設定</h2>
+<h3>ブラウザ拡張設定</h3>
 <p>
   <a href='http://ponzu840w.jp/env/vimium_c.json' download>vimium_c.json</a>
 </p>
+
+<h2>antiX Linux</h2>
+
+<h3>セットアップスクリプト</h3>
+<p>
+  <a href='http://ponzu840w.jp/env/antix-nihongo.sh' download>antix-nihongo.sh</a>
+  <br>
+  <a href='http://ponzu840w.jp/env/antix-ui.sh' download>antix-ui.sh</a>
+  <br>
+  <a href='http://ponzu840w.jp/env/antix-app.sh' download>antix-app.sh</a>
+</p>
+
+<pre>
+<code>
+wget ponzu840w.jp/env/antix-nihongo.sh  # 日本語化。万人に推奨。
+wget ponzu840w.jp/env/antix-ui.sh       # テキストベースの軽い設定。
+wget ponzu840w.jp/env/antix-app.sh      # app-get を含む重めの設定。
+
+chmod +x antix-*.sh
+
+./antix-nihongo.sh
+./antix-ui.sh
+./antix-app.sh
+</code>
+</pre>
 
 </body>

@@ -92,6 +92,10 @@ if [ "$THEME" = 'laptop' ]; then
   config_dq ${tmpath}/default.theme ColorActiveTaskBarApp "#BBBBBB"
   config_dq ${tmpath}/default.theme ColorNormalBorder "#dddddd"
   config_dq ${tmpath}/default.theme ColorActiveBorder "#dddddd"
+
+  # ダイアログの内容の色
+  config_dq ${tmpath}/default.theme ColorLabelText "black"
+  config_dq ${tmpath}/default.theme ColorDialog "#DDD5D5"
 fi
 
 ### iceWM追加設定 ###
@@ -145,6 +149,7 @@ sed -i 's/Ctrl+Space/Super+Space/g' ~/.icewm/keys
 
 ### zzzFM 設定 ###
 sed -i '/single_click/d' ~/.config/zzzfm/session* # シングルクリックを許さない
+sed -i '/show_wm_menu/d' ~/.config/zzzfm/session* # デスクトップで右クリックしたらzzzFMのコンテキストメニューを出す
 
 ### ROXterm カラースキーム ###
 mkdir -p ~/.config/roxterm.sourceforge.net/Colours

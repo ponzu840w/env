@@ -4,22 +4,9 @@
 sudo apt update
 sudo apt upgrade -y
 
-### 選べるテーマ！ ###
-#THEME='black'   # 普通のモニタならかっこいい黒系
-THEME='laptop'   # ヘボいモニタでも見やすい白系
-
 ### VIM ###
 # デフォルトのvimは簡素すぎるのでパーフェクトなvimをインストール
 sudo apt-get -y install vim-gtk3
-# .vimrc
-mkdir -p ~/.vimtmp
-wget http://ponzu840w.jp/env/.vimrc -O ~/.vimrc
-if [ "$THEME" = 'laptop' ]; then
-  str='colorscheme peachpuff'
-else
-  str='colorscheme evening'
-fi
-echo "$str" >~/.vimrc_local
 
 ### ROXterm強制フォーカスデーモン ###
 # ROXtermの2つ目以降のウィンドウがファーカスなしで起動する場合があるので
