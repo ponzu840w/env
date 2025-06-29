@@ -57,3 +57,9 @@ wget ponzu840w.jp/env/for_use_antix-contribs_zzzfmpot_ja.po -O zzzfm_ja.po
 msgfmt -c -o zzzfm.mo zzzfm_ja.po
 sudo cp zzzfm.mo /usr/share/locale/ja/LC_MESSAGES/zzzfm.mo
 rm zzzfm_ja.po zzzfm.mo
+# zzzfmlocalize（antixによるさらなるローカライズ）の適用
+killall zzzfm
+wget ponzu840w.jp/env/for_use_antix-development_antix-zzz-extensions_ja.po -O antix-zzz-extensions_ja.po
+msgfmt -c -o antix-zzz-extensions.mo antix-zzz-extensions_ja.po
+sudo cp antix-zzz-extensions.mo /usr/share/locale/ja/LC_MESSAGES/antix-zzz-extensions.mo
+rm antix-zzz-extensions_ja.po antix-zzz-extensions.mo
