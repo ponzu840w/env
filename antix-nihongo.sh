@@ -64,4 +64,13 @@ msgfmt -c -o antix-zzz-extensions.mo antix-zzz-extensions_ja.po
 sudo cp antix-zzz-extensions.mo /usr/share/locale/ja/LC_MESSAGES/antix-zzz-extensions.mo
 rm antix-zzz-extensions_ja.po antix-zzz-extensions.mo
 
+### メニューの Refresh Menu ###
+sed -i -e 's/Refresh Menu/メニューを更新/' ~/.icewm/menu
+sudo sed -i -e 's/Refresh Menu/メニューを更新/' /usr/share/antiX/localisation/ja/icewm/menu
+
+### .desktop ###
+sudo sed -i -e 's/GUVC眺める/GUVCView/' /usr/share/applications/guvcview.desktop
+sudo sed -i -e 's/antiX無線/antiXラジオ/' /usr/share/applications/antiXradio.desktop
+desktop-menu --write-out-global
+
 /usr/local/lib/desktop-session/desktop-session-restart
