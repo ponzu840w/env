@@ -99,7 +99,7 @@
                                         "optional": ["any"]
                                     }
                                 },
-                                "to": [{ "shell_command": "osascript -e 'tell application \"iTerm\" to launch' -e 'repeat 20 times' -e 'if application \"iTerm\" is running then exit repeat' -e 'delay 0.2' -e 'end repeat' -e 'if application \"iTerm\" is running then' -e 'tell application \"iTerm\"' -e 'set normalWindow to missing value' -e 'try' -e 'set normalWindow to (first window whose is hotkey window is false)' -e 'on error' -e 'end try' -e 'activate' -e 'if normalWindow is not missing value then' -e 'tell normalWindow' -e 'select' -e 'create tab with default profile' -e 'end tell' -e 'else' -e 'create window with default profile' -e 'end if' -e 'end tell' -e 'end if'" }],
+                                "to": [{ "shell_command": "/bin/bash -c 'osascript \"$HOME/.config/karabiner/scripts/cmd_alt_t_iterm_newtab.scpt\"'" }],
                                 "type": "basic"
                             },
                             {
@@ -110,7 +110,7 @@
                                         "optional": ["any"]
                                     }
                                 },
-                                "to": [{ "shell_command": "osascript -e 'tell application \"iTerm\" to launch' -e 'repeat 20 times' -e 'if application \"iTerm\" is running then exit repeat' -e 'delay 0.2' -e 'end repeat' -e 'if application \"iTerm\" is running then' -e 'tell application \"iTerm\"' -e 'set normalWindow to missing value' -e 'try' -e 'set normalWindow to (first window whose is hotkey window is false)' -e 'on error' -e 'end try' -e 'activate' -e 'if normalWindow is not missing value then' -e 'tell normalWindow' -e 'select' -e 'create tab with default profile' -e 'end tell' -e 'else' -e 'create window with default profile' -e 'end if' -e 'end tell' -e 'end if'" }],
+                                "to": [{ "shell_command": "/bin/bash -c 'osascript \"$HOME/.config/karabiner/scripts/cmd_alt_t_iterm_newtab.scpt\"'" }],
                                 "type": "basic"
                             }
                         ]
@@ -126,7 +126,7 @@
                                         "optional": ["any"]
                                     }
                                 },
-                                "to": [{ "shell_command": "osascript -e 'tell application \"iTerm\" to launch' -e 'repeat 20 times' -e 'if application \"iTerm\" is running then exit repeat' -e 'delay 0.2' -e 'end repeat' -e 'if application \"iTerm\" is running then' -e 'tell application \"System Events\" to tell process \"iTerm\" to keystroke \"r\" using {command down, option down}' -e 'end if'" }],
+                                "to": [{ "shell_command": "/bin/bash -c 'osascript \"$HOME/.config/karabiner/scripts/cmd_alt_r_iterm_hotkey_bootstrap.scpt\"'" }],
                                 "type": "basic"
                             }
                         ]
