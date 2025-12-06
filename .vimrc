@@ -79,10 +79,12 @@ set softtabstop=2     " タブキー押下時に挿入される文字数
 set smartindent       " 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
 set wildmenu          " コマンドモードの補完
 if !has('nvim')
-  set clipboard^=autoselect " ヤンクでクリップボードにコピー
-  set guioptions+=a         " yでコピーした時にクリップボードに入る
+  if !has('mac')
+    set clipboard^=autoselect " ヤンクでクリップボードにコピー
+    set guioptions+=a         " yでコピーした時にクリップボードに入る
+  endif
 endif
-if has('win32')
+if has('win32') || has('mac')
   set clipboard^=unnamed
 else
   set clipboard^=unnamedplus
