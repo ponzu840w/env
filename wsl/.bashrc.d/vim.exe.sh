@@ -12,15 +12,26 @@ function __vimarg () {
       if(inarg[i]~/^-/){ # オプション引数は素通り
         print(inarg[i])
       }else{             # パス引数
-        "test -d "inarg[i]" ; echo $?" | getline ts
+        # ======= シンボリックリンク解決処理 ========
+        cmd = "readlink -f \"" inarg[i] "\""
+        cmd | getline resolved_path
+        close(cmd)
+        # readlinkが失敗した場合は元のパスを使う
+        if (resolved_path == "") {
+            target = inarg[i]
+        } else {
+            target = resolved_path
+        }
+        # ===========================================
+        "test -d "target" ; echo $?" | getline ts
         if (ts==0) {     # ディレクトリなら、そのままWindowsパスにする
-          print(winpath(inarg[i]))
+          print(winpath(target))
         }else{           # ファイルの場合、新規ファイルかもしれないのでディレクトリ部分だけwslpathに通す。
-          num=split(inarg[i],splpath,"/")
+          num=split(target,splpath,"/")
           if (num==1) {  # カレントディレクトリならそれも必要なし
-            print(inarg[i])
+            print(target)
           }else{
-            base=substr(inarg[i],1,length(inarg[i])-length(splpath[num]))
+            base=substr(target,1,length(target)-length(splpath[num]))
             print("'\''"winpath(base) "\\" splpath[num]"'\''")
           }
         }
