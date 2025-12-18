@@ -79,7 +79,7 @@ fi
 
 #Win10のX鯖につなぐ
 #export DISPLAY=192.168.0.11:0
-export DISPLAY=$(ip route list default | awk '{print $3}'):0
+#export DISPLAY=$(ip route list default | awk '{print $3}'):0
 
 # hmanコマンドをWindowsのEdgeで開く
 function hman () {
