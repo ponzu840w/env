@@ -40,10 +40,6 @@ export PDK_ROOT=/home/ponzu840w/pdk
 export PDK=gf180mcuD
 export STD_CELL_LIBRARY=gf180mcu_fd_sc_mcu7t5v0
 
-# Ruby
-eval "$($HOME/.rbenv/bin/rbenv init - bash)"
-export GRDIR="$HOME/work/gr"
-
 # Raspberry Pi Pico SDK
 export PICO_SDK_PATH=$HOME/work/pico/pico-sdk
 
@@ -54,10 +50,6 @@ export INFOPATH="$INFOPATH:/usr/local/texlive/2025/texmf-dist/doc/info"
 
 # Rust
 . "$HOME/.cargo/env"
-
-# Perl plenv
-export PATH="$HOME/.plenv/bin:$PATH"
-eval "$(plenv init -)"
 
 # chdzimg
 export PATH="$PATH:~/work/chdzimg/bin"

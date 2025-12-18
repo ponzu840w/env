@@ -91,11 +91,6 @@ function hman () {
 # viモードを有効化
 set -o vi
 
-# Node Version Manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # .bash_aliasesがあれば読み込む
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
