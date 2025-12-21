@@ -1,4 +1,11 @@
+# ~/.bashrc @macbook
+
 if [ -z "$PS1" ]; then return; fi
+
+# プロンプト設定
+# user@host(通常シアン):path(通常色)
+# $(通常シアン)
+PS1="\[\033[36m\]\u@\h\[\033[00m\]:\[\033[00m\]\w\n\[\033[36m\]\\$ \[\033[00m\]"
 
 # GNU tools
 p="/opt/homebrew/opt"
@@ -34,23 +41,26 @@ alias la='ls -AFG'
 alias l='ls -CFG'
 
 alias ii='open'
-alias clip='pbcopy'
+
+# clip.exeのエミュレーション
+function clip() {
+  if [ -t 0 ]; then
+    # TTY入力である -> ストリーム入力がないパイプ先頭
+    #   -> クリップボードの中身をストリームに放出
+    pbpaste
+  else
+    # TTY入力でない -> ストリーム入力があるパイプライン後段
+    #   -> 入力をクリップボードに保存
+    pbcopy
+  fi
+}
 
 alias nik='vim /Users/ponzu840w/.od/doc/nikki'
 
-# user@host(通常シアン):path(通常色)
-# $(通常シアン)
-PS1="\[\033[36m\]\u@\h\[\033[00m\]:\[\033[00m\]\w\n\[\033[36m\]\\$ \[\033[00m\]"
-
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/ponzu840w/.lmstudio/bin"
-# End of LM Studio CLI section
-
 alias tcc="wine /Users/ponzu840w/Desktop/tcc/tcc.exe"
-export WINEDEBUG=-all
 alias windres="i686-w64-mingw32-windres"
 alias mingw="i686-w64-mingw32-gcc"
 alias mingw64="x86_64-w64-mingw32-gcc"
-export GST_PLUGIN_LOADING_WHITELIST="gstreamer:gst-plugins-base:gst-plugins-good"
 alias xpra="/Applications/Xpra.app/Contents/MacOS/Xpra"
+
+#eval "$(starship init bash)"

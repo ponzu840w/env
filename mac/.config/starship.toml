@@ -1,0 +1,39 @@
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status
+$character"""
+
+[username]
+format = "[$user]($style)"
+style_user = "bold purple"
+style_root = "bold red"
+show_always = true
+
+[hostname]
+format = "[@$hostname]($style)"
+style = "bold purple"
+ssh_only = false              # SSHじゃなくても常に表示
+trim_at = "."                 # .localなどを省略
+
+[directory]
+format = "[:$path]($style) "  # 先頭にコロンをつける
+style = "bold blue"           # 青色
+truncate_to_repo = false      # gitリポジトリだからといってパス省略しない
+truncation_length = 8
+truncation_symbol = ".../"    # 省略記号
+
+# プロンプト記号 ( > )
+[character]
+success_symbol = "[❯](bold green)" # 成功時は緑の >
+error_symbol = "[❯](bold red)"     # エラー時は赤の >
+
+[git_branch]
+format = "[$symbol$branch]($style) "
+style = "bold yellow"
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "bold red"
