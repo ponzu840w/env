@@ -1,0 +1,10 @@
+" REDMAX Windows
+if !has('nvim')
+  colorscheme winpablo
+endif
+if has('nvim')
+  colorscheme vim
+endif
+set shell=pwsh
+set backupdir^=D:/5.バックアップ/vim/vimbackupfiles//
+set nocursorline
