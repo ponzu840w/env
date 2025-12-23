@@ -6,8 +6,9 @@
 function prompt
 {
   # 直前のコマンドのステータス
-  $statusColor = if ($?) { 'DarkBlue' } else { 'Red' }
-  $statusSymbol = if ($?) { '✔' } else { '✘' }
+  $prevStatus = $?
+  $statusColor = if ($prevStatus) { 'DarkBlue' } else { 'Red' }
+  $statusSymbol = if ($prevStatus) { '✔' } else { '✘' }
 
   # パス
   $path = $PWD.Path
