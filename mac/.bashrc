@@ -64,3 +64,10 @@ alias mingw64="x86_64-w64-mingw32-gcc"
 alias xpra="/Applications/Xpra.app/Contents/MacOS/Xpra"
 
 #eval "$(starship init bash)"
+export BLOG_ROOT="/Users/ponzu840w/work/bbr/data-test"
+export PATH="$PATH:~/work/bbr/bin"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/ponzu840w/.lmstudio/bin"
+# End of LM Studio CLI section
+

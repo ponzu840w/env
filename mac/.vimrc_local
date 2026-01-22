@@ -1,2 +1,3 @@
 highlight Search cterm=NONE ctermfg=black ctermbg=yellow guifg=black guibg=yellow
 highlight IncSearch cterm=NONE ctermfg=black ctermbg=cyan guifg=black guibg=cyan
+" set shell=/bin/bash

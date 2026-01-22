@@ -115,5 +115,27 @@ function clip
   else                              { Get-Clipboard }
 }
 function nik { vim /Users/ponzu840w/.od/doc/nikki }
+function gay { vim /Users/ponzu840w/.od/doc/gay.txt }
 function gitlog { git log --decorate --oneline --graph }
 
+#$env:BLOG_ROOT = "/Users/ponzu840w/work/bbr/data-test"
+$env:BLOG_ROOT = "/Users/ponzu840w/work/bbr/data"
+$env:PATH = "${env:PATH}:~/work/bbr/bin"
+
+function rbenv
+{
+  Remove-Item Function:\rbenv -ErrorAction SilentlyContinue
+  $rbenvShim = "$HOME/.rbenv/shims"
+  if ((${env:PATH} -split ':') -notcontains $rbenvShim) { ${env:PATH} = "${rbenvShim}:${env:PATH}" }
+  rbenv @args
+}
+
+# tmuxがインストールされていて、かつtmuxセッション内でなければ実行
+#if ((Get-Command "tmux" -ErrorAction SilentlyContinue) -and -not $env:TMUX) {
+#    # VSCode内のターミナルや、SSH接続先としての起動でないかチェック（多重起動防止）
+#    if (-not $env:VSCODE_PID -and -not $env:SSH_CONNECTION) {
+#        # 'main' という名前のセッションがあればアタッチ、なければ新規作成
+#        # -u はUTF-8強制オプション（日本語文字化け防止のお守り）
+#        tmux -u new-session -A -s main
+#    }
+#}
