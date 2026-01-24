@@ -91,6 +91,10 @@ function hman () {
 # viモードを有効化
 set -o vi
 
+# bbr
+export BLOG_ROOT="$HOME/work/bbr/data"
+export PATH="$PATH:$HOME/work/bbr/bin"
+
 # .bash_aliasesがあれば読み込む
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
