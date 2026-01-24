@@ -14,6 +14,7 @@ export PATH="$PATH:/Users/ponzu840w/.lmstudio/bin" # LM Studio
 
 # 個別ソフト環境セットアップ
 eval "$(/opt/homebrew/bin/brew shellenv)" # homebrew
+. "$HOME/.cargo/env" # cargo
 
 # ~/.bashrcの実行
 if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
