@@ -1,0 +1,36 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# Termux:X11のためのxfceセッションをtmuxセッションとして裏で起動
+
+SESSION_NAME="x11-gui"
+
+# 同名のtmuxセッションが存在するか確認
+tmux has-session -t $SESSION_NAME 2>/dev/null
+
+if [ $? != 0 ]; then
+  # セッションが存在しない場合: 新規作成してデタッチモードで起動
+  echo "Starting XFCE4 in background (tmux session: $SESSION_NAME)..."
+
+  # tmux内で実行するコマンドを構築
+  # 1. Termux:X11アプリ起動
+  # 2. 1秒待機
+  # 3. 環境変数を設定してXサーバー起動
+  CMD="am start --user 0 -n com.termux.x11/com.termux.x11.MainActivity > /dev/null 2>&1; \
+       sleep 1; \
+       export DISPLAY=:0; \
+       termux-x11 :0 -xstartup 'dbus-launch --exit-with-session xfce4-session'"
+
+  # 新しいセッションを作成し、上記のコマンドを実行
+  tmux new-session -d -s $SESSION_NAME "$CMD"
+
+  echo "Done. Use 'tmux attach -t $SESSION_NAME' to view logs."
+
+else
+  # セッションが既に存在する場合
+  echo "XFCE session is already running."
+  read -p "Attach to session? (y/n): " choice
+  if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+    tmux attach -t $SESSION_NAME
+  fi
+fi
+
