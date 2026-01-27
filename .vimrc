@@ -148,10 +148,13 @@ if !has('nvim')
 endif
 
 " ペースト時のみインデントしない
-if &term =~ "xterm"
+if !has('nvim') && &term =~ "xterm"
   let &t_SI .= "\e[?2004h"
   let &t_EI .= "\e[?2004l"
-  let &pastetoggle = "\e[201~"
+
+  if exists('&pastetoggle')
+    let &pastetoggle = "\e[201~"
+  endif
 
   function XTermPasteBegin(ret)
       set paste
