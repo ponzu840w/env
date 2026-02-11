@@ -121,6 +121,7 @@ function gitlog { git log --decorate --oneline --graph }
 #$env:BLOG_ROOT = "/Users/ponzu840w/work/bbr/data-test"
 $env:BLOG_ROOT = "/Users/ponzu840w/work/bbr/data"
 $env:PATH = "${env:PATH}:~/work/bbr/bin"
+$env:PATH = "${env:PATH}:~/.local/bin"
 
 function rbenv
 {
@@ -139,3 +140,6 @@ function rbenv
 #        tmux -u new-session -A -s main
 #    }
 #}
+
+function python  { python3.14 @args }
+

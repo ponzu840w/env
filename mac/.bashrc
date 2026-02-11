@@ -71,3 +71,5 @@ export PATH="$PATH:~/work/bbr/bin"
 export PATH="$PATH:/Users/ponzu840w/.lmstudio/bin"
 # End of LM Studio CLI section
 
+
+source /Users/ponzu840w/.config/broot/launcher/bash/br

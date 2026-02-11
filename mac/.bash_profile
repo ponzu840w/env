@@ -19,3 +19,5 @@ eval "$(/opt/homebrew/bin/brew shellenv)" # homebrew
 # ~/.bashrcの実行
 if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
 
+
+source /Users/ponzu840w/.config/broot/launcher/bash/br
