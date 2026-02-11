@@ -5,6 +5,15 @@
 # ---------------------------------------------------------------------------
 function prompt
 {
+  # カレントディレクトリをシステムと同期
+  [System.IO.Directory]::SetCurrentDirectory($PWD.Path)
+
+  # tmuxにカレントディレクトリを送信
+  if ($env:TMUX)
+  {
+    $path = $ExecutionContext.SessionState.Path.CurrentFileSystemLocation.Path
+    Write-Host -NoNewline "`e]7;file://localhost$($path)`a"
+  }
   # 直前のコマンドのステータス
   $prevStatus = $?
   $statusColor = if ($prevStatus) { 'DarkBlue' } else { 'Red' }
