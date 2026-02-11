@@ -1,0 +1,20 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# proot-distro 環境内にインストールされたpwshをネイティブからシームレスに呼ぶラッパー
+# 使い方:
+#   $ pwsh
+#   $ pwsh -C Get-ChildItem
+#   $ pwsh script.ps1
+
+GEST_NAME="debian"
+GEST_USER="ponzu840w"
+GEST_HOME="/home/$GEST_USER"
+HOME_MOUNT_POINT="$GEST_HOME/native"
+
+CWD=$(pwd)
+
+proot-distro login $GEST_NAME --user $GEST_USER --bind $HOME:$HOME_MOUNT_POINT \
+  -- /bin/sh -c '
+    cd "$1" && shift && env DOTNET_GCHeapHardLimit=1C0000000 /usr/bin/pwsh "$@"
+  ' -- "$CWD" "$@"
+

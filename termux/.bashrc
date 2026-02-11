@@ -21,3 +21,9 @@ alias ll='ls -lhFG --color=auto'
 alias la='ls -AFG'
 alias l='ls -CFG'
 
+# sshd
+if ! pgrep -x "sshd" > /dev/null; then sshd; fi
+
+# proot debian
+alias deb='proot-distro login debian --user ponzu840w'
+
