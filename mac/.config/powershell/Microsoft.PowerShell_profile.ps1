@@ -131,6 +131,8 @@ function gitlog { git log --decorate --oneline --graph }
 $env:BLOG_ROOT = "/Users/ponzu840w/work/bbr/data"
 $env:PATH = "${env:PATH}:~/work/bbr/bin"
 $env:PATH = "${env:PATH}:~/.local/bin"
+$env:PATH = "${env:PATH}:~/work/cc65/bin"
+$env:PATH = "/opt/homebrew/bin:${env:PATH}"
 
 function rbenv
 {

@@ -70,6 +70,9 @@ export PATH="$PATH:~/work/bbr/bin"
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/ponzu840w/.lmstudio/bin"
 # End of LM Studio CLI section
+export PATH="$PATH:/Users/ponzu840w/work/cc65/bin"
+export PATH="$PATH:/opt/homebrew/opt/binutils/bin"
+export PATH="/opt/homebrew/bin:$PATH"
 
 
 source /Users/ponzu840w/.config/broot/launcher/bash/br
