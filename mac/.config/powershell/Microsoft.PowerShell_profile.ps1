@@ -128,11 +128,14 @@ function gay { vim /Users/ponzu840w/.od/doc/gay.txt }
 function gitlog { git log --decorate --oneline --graph }
 
 #$env:BLOG_ROOT = "/Users/ponzu840w/work/bbr/data-test"
-$env:BLOG_ROOT = "/Users/ponzu840w/work/bbr/data"
+$env:BBR_REPO = "/Users/ponzu840w/work/bbr/data"
 $env:PATH = "${env:PATH}:~/work/bbr/bin"
-$env:PATH = "${env:PATH}:~/.local/bin"
 $env:PATH = "${env:PATH}:~/work/cc65/bin"
+$env:PATH = "${env:PATH}:/usr/local/bin"
 $env:PATH = "/opt/homebrew/bin:${env:PATH}"
+$env:PATH = "~/.local/bin:${env:PATH}"
+$env:PATH = "${env:PATH}:/Users/ponzu840w/work/cc65/bin"
+$env:HOMEBREW_NO_ENV_HINTS = 1
 
 function rbenv
 {

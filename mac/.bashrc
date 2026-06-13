@@ -76,3 +76,4 @@ export PATH="/opt/homebrew/bin:$PATH"
 
 
 source /Users/ponzu840w/.config/broot/launcher/bash/br
+. "$HOME/.cargo/env"
