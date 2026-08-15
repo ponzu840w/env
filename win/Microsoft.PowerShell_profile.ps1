@@ -60,3 +60,14 @@ function clip
 function nik { vim $HOME\OneDrive\doc\nikki }
 function gitlog { git log --decorate --oneline --graph }
 
+function ucrt { C:\msys64\msys2_shell.cmd -defterm -here -no-start -ucrt64 }
+function ytdl { yt-dlp --cookies-from-browser firefox @args }
+function ytdloop {
+  Write-Host "URLを入力するとダウンロードします。^Cで終了。"
+  while ($true) {
+    $inputLine = Read-Host
+    if ($inputLine -ne "") {
+      yt-dlp --cookies-from-browser firefox $inputLine
+    }
+  }
+}

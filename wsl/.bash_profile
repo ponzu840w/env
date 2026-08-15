@@ -54,3 +54,7 @@ export INFOPATH="$INFOPATH:/usr/local/texlive/2025/texmf-dist/doc/info"
 # chdzimg
 export PATH="$PATH:~/work/chdzimg/bin"
 
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

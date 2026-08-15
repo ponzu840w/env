@@ -110,3 +110,10 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
+
+# emsdk (Emscripten) — calcyx wasm ビルド用
+source "$HOME/emsdk/emsdk_env.sh" >/dev/null 2>&1
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
