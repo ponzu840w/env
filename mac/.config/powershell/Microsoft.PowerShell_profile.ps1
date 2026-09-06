@@ -32,7 +32,7 @@ function prompt
 
   # --- 1行目: user@hostname:path ---
   Write-Host "$userName@$hostName" -NoNewline -ForegroundColor DarkBlue
-  Write-Host ":" -NoNewline -ForegroundColor Black
+  Write-Host ":" -NoNewline
   Write-Host $path -ForegroundColor DarkGreen
 
   # --- 2行目: ステータス + プロンプト ---
@@ -43,11 +43,11 @@ function prompt
 }
 
 # ---------------------------------------------------------------------------
-#                 iTerm2 Solarized Light対応 PSReadLine色設定
+#               iTerm2 Solarized Light/dark対応 PSReadLine色設定
 # ---------------------------------------------------------------------------
 Set-PSReadLineOption -Colors @{
   # --- 基本 ---
-  Default            = 'Black'
+  Default            = "`e[39m"
 
   # --- 構文ハイライト ---
   Command            = 'DarkBlue'     # コマンド (Get-ChildItem)
@@ -55,14 +55,14 @@ Set-PSReadLineOption -Colors @{
   String             = 'DarkCyan'     # 文字列 ("text")
   Variable           = 'DarkRed'      # 変数 ($HOME)
   Parameter          = 'DarkYellow'   # パラメータ (-Path)
-  Operator           = 'DarkGray'     # 演算子 (=, |)
+  Operator           = "`e[2;39m"     # 演算子 (=, -gt, -not)
   Type               = 'DarkGreen'    # 型 ([string])
   Number             = 'DarkBlue'     # 数値 (100)
   Member             = 'Blue'         # メンバー/プロパティ (.Length)
   Comment            = 'DarkGreen'    # コメント (#comment)
 
   # --- プロンプト・その他 ---
-  ContinuationPrompt    = 'Black'     # 継続プロンプト ( >> )
+  ContinuationPrompt    = "`e[39m"    # 継続プロンプト ( >> )
   Emphasis              = 'DarkCyan'  # 強調 (検索マッチなど)
   Error                 = 'Red'
   InlinePrediction      = 'Magenta'

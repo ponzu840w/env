@@ -43,16 +43,19 @@ function Show-PSReadLineColor
     }
 
   Write-Host ""
+  # 記号(| { } . [ ] ;)はOperatorではなくDefaultで描かれる。PSReadLineが
+  # Operator扱いするのはTokenFlagsにAssignment/Binary/UnaryOperatorが立つものだけ。
+  $d = $o.DefaultTokenColor
   Write-Host (@(
     "  $($o.CommentColor)# サンプル$r"
-    "  $($o.KeywordColor)function$r $($o.CommandColor)Test-Color$r $($o.OperatorColor){$r"
-    "    $($o.VariableColor)`$n$r $($o.OperatorColor)=$r $($o.NumberColor)42$r"
-    "    $($o.TypeColor)[string]$r$($o.VariableColor)`$s$r $($o.OperatorColor)=$r $($o.StringColor)'~/work/env'$r$($o.OperatorColor).$r$($o.MemberColor)Length$r"
-    "    $($o.CommandColor)Get-ChildItem$r $($o.ParameterColor)-Path$r $($o.VariableColor)`$s$r $($o.OperatorColor)|$r $($o.CommandColor)Select-Object$r $($o.ParameterColor)-First$r $($o.NumberColor)3$r"
-    "  $($o.OperatorColor)}$r"
+    "  $($o.KeywordColor)function$r ${d}Test-Color$r ${d}{$r"
+    "    $($o.VariableColor)`$n$r $($o.OperatorColor)=$r $($o.NumberColor)42$r $($o.OperatorColor)-gt$r $($o.NumberColor)7$r"
+    "    ${d}[$r$($o.TypeColor)string$r${d}]$r$($o.VariableColor)`$s$r $($o.OperatorColor)=$r $($o.StringColor)'~/work/env'$r${d}.$r$($o.MemberColor)Length$r"
+    "    $($o.CommandColor)Get-ChildItem$r $($o.ParameterColor)-Path$r $($o.VariableColor)`$s$r ${d}|$r $($o.CommandColor)Select-Object$r $($o.ParameterColor)-First$r $($o.NumberColor)3$r"
+    "  ${d}}$r"
     ""
     "  $($o.ErrorColor)Error$r  $($o.EmphasisColor)Emphasis$r  $($o.InlinePredictionColor)InlinePrediction$r  $($o.ListPredictionTooltipColor)Tooltip$r"
-    "  $($o.ContinuationPromptColor)>>$r $($o.DefaultTokenColor)Default トークン$r"
+    "  $($o.ContinuationPromptColor)>>$r $($o.SelectionColor)Selection$r"
   ) -join "`n")
   Write-Host ""
 }
