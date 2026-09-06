@@ -1,0 +1,36 @@
+{
+  "Profiles": [
+    {
+      "Name": "tmux",
+      "Guid": "EF1A3AEF-0764-45C2-8AAC-DB8B112A5F16",
+      "Dynamic Profile Parent Name": "Solarized",
+      "Brighten Bold Text (Dark)": true,
+      "Brighten Bold Text (Light)": true,
+      "Command": "/usr/local/bin/pwsh",
+      "Cursor Boost (Dark)": 0.0,
+      "Cursor Boost (Light)": 0.0,
+      "Custom Command": "Custom Shell",
+      "Faint Text Alpha (Dark)": 0.5,
+      "Faint Text Alpha (Light)": 0.5,
+      "Horizontal Spacing": 1.0,
+      "Minimum Contrast (Dark)": 0.0,
+      "Minimum Contrast (Light)": 0.0,
+      "Normal Font": "MesloLGSNFM-Regular 12",
+      "Transparency": 0.0,
+      "Use Bright Bold (Dark)": true,
+      "Use Bright Bold (Light)": true,
+      "Use Cursor Guide (Dark)": false,
+      "Use Cursor Guide (Light)": false,
+      "Vertical Spacing": 1.0,
+      "Ansi 10 Color (Light)": {"Red Component": 0.34509803921568627, "Color Space": "sRGB", "Blue Component": 0.4588235294117647, "Green Component": 0.43137254901960786},
+      "Smart Cursor Color (Dark)": false,
+      "Smart Cursor Color (Light)": false,
+      "Use Selected Text Color (Dark)": true,
+      "Use Selected Text Color (Light)": true,
+      "Use Tab Color (Dark)": false,
+      "Use Tab Color (Light)": false,
+      "Use Underline Color (Dark)": false,
+      "Use Underline Color (Light)": false
+    }
+  ]
+}

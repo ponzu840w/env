@@ -1,0 +1,39 @@
+{
+  "Profiles": [
+    {
+      "Name": "Hotkey Window",
+      "Guid": "6426E8FD-5C85-4558-9E03-BEDD6EE6BC7A",
+      "Dynamic Profile Parent Name": "Solarized",
+      "Blend": 0.5,
+      "Blur": true,
+      "Blur Radius": 2,
+      "Command": "",
+      "Custom Command": "No",
+      "Has Hotkey": true,
+      "HotKey Activated By Modifier": true,
+      "HotKey Alternate Shortcuts": [
+        {
+          "charactersIgnoringModifiers": "r",
+          "modifiers": 1572864,
+          "keyCode": 15,
+          "characters": "®"
+        }
+      ],
+      "HotKey Characters": "\u0012",
+      "HotKey Characters Ignoring Modifiers": "r",
+      "HotKey Key Code": 15,
+      "HotKey Modifier Activation": 0,
+      "HotKey Modifier Flags": 786432,
+      "HotKey Window Animates": true,
+      "HotKey Window AutoHides": true,
+      "HotKey Window Dock Click Action": 0,
+      "HotKey Window Floats": false,
+      "HotKey Window Reopens On Activation": false,
+      "Initial Use Transparency": true,
+      "Space": -1,
+      "Transparency": 0.3,
+      "Window Type": 2,
+      "Ansi 10 Color (Light)": {"Red Component": 0.34509803921568627, "Color Space": "sRGB", "Blue Component": 0.4588235294117647, "Green Component": 0.43137254901960786}
+    }
+  ]
+}
