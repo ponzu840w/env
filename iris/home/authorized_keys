@@ -1,0 +1,6 @@
+# ~ponzu840w/.ssh/authorized_keys
+# irisへのSSHログインを許可するクライアントの公開鍵（1行1鍵）
+# 鍵が1つもない場合、install.shはパスワード認証の無効化を行わない（締め出し防止）
+
+# macbook
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDgOYxAkj29Aq+/fxOqmUkF3tYeKxssucuoYc+oMZp4Y 
