@@ -34,6 +34,18 @@ for prop in HandleLidSwitch HandleLidSwitchExternalPower HandleLidSwitchDocked; 
   [ "$val" = '"ignore"' ] || { echo "ERROR: $prop が ignore になっていません" >&2; exit 1; }
 done
 
+# ===== セキュリティ更新の自動適用 =====
+if ! dpkg-query -W -f='${Status}' unattended-upgrades 2>/dev/null | grep -q 'install ok installed'; then
+  $SUDO apt-get install -y unattended-upgrades
+fi
+install_file etc/apt/apt.conf.d/20auto-upgrades || true
+$SUDO systemctl enable --now apt-daily.timer apt-daily-upgrade.timer
+apt_conf=$(apt-config dump)  # パイプで grep -q すると SIGPIPE で誤判定するため変数に受ける
+for kv in 'APT::Periodic::Update-Package-Lists "1";' 'APT::Periodic::Unattended-Upgrade "1";'; do
+  grep -qxF "$kv" <<<"$apt_conf" || { echo "ERROR: apt の実効値が '$kv' になっていません" >&2; exit 1; }
+  echo "  $kv"
+done
+
 # ===== SSH: 公開鍵認証のみ =====
 # authorized_keys はリポジトリの内容で上書きする
 ak_src="$SRC_DIR/home/authorized_keys"

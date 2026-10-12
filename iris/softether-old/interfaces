@@ -1,0 +1,21 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+#auto enp3s0
+#allow-hotplug enp3s0
+#iface enp3s0 inet manual
+#iface enp3s0 inet dhcp
+
+# ブリッヂ
+auto br0
+iface br0 inet dhcp
+#address 192.168.11.35
+#netmask 255.255.255.255
+bridge_ports enp3s0 tap_ventrance

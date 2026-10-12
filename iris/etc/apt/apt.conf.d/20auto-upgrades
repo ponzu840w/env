@@ -1,0 +1,4 @@
+// /etc/apt/apt.conf.d/20auto-upgrades
+// セキュリティ更新を毎日自動で適用する（対象は 50unattended-upgrades の Allowed-Origins）
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
