@@ -9,16 +9,31 @@ SUDO=""
 USER_NAME="ponzu840w"
 USER_HOME="$(getent passwd "$USER_NAME" | cut -d: -f6)"
 
-# $1: リポジトリ内の相対パス（etc/... → /etc/... に配置）
+# $1: リポジトリ内の相対パス（etc/... → /etc/... に配置）, $2: パーミッション（省略時 644）
 # 内容が異なる場合のみ配置し、変更があれば0を返す
 install_file() {
-  local rel="$1" dst="/$1"
+  local rel="$1" dst="/$1" mode="${2:-644}"
   if [ -f "$dst" ] && cmp -s "$SRC_DIR/$rel" "$dst"; then
     echo "[skip] $dst"
     return 1
   fi
-  $SUDO install -D -m 644 -o root -g root "$SRC_DIR/$rel" "$dst"
+  $SUDO install -D -m "$mode" -o root -g root "$SRC_DIR/$rel" "$dst"
   echo "[install] $dst"
+}
+
+# 未インストールのパッケージだけを入れる（初回のみ apt-get update する）
+APT_UPDATED=""
+ensure_pkg() {
+  local missing=() p
+  for p in "$@"; do
+    dpkg-query -W -f='${Status}' "$p" 2>/dev/null | grep -q 'install ok installed' || missing+=("$p")
+  done
+  [ ${#missing[@]} -eq 0 ] && return 0
+  if [ -z "$APT_UPDATED" ]; then
+    $SUDO apt-get update
+    APT_UPDATED=1
+  fi
+  $SUDO apt-get install -y "${missing[@]}"
 }
 
 # ===== フタを閉じてもサスペンドしない =====
@@ -35,9 +50,7 @@ for prop in HandleLidSwitch HandleLidSwitchExternalPower HandleLidSwitchDocked; 
 done
 
 # ===== セキュリティ更新の自動適用 =====
-if ! dpkg-query -W -f='${Status}' unattended-upgrades 2>/dev/null | grep -q 'install ok installed'; then
-  $SUDO apt-get install -y unattended-upgrades
-fi
+ensure_pkg unattended-upgrades
 install_file etc/apt/apt.conf.d/20auto-upgrades || true
 $SUDO systemctl enable --now apt-daily.timer apt-daily-upgrade.timer
 apt_conf=$(apt-config dump)  # パイプで grep -q すると SIGPIPE で誤判定するため変数に受ける
@@ -75,4 +88,37 @@ if [ -f /etc/ssh/sshd_config.d/10-pubkey-only.conf ]; then
     grep -qx "$kv" <<<"$sshd_conf" || { echo "ERROR: sshd の実効値が '$kv' になっていません" >&2; exit 1; }
     echo "  $kv"
   done
+fi
+
+# ===== ファイアウォール（nftables） =====
+# 旧来の iptables-persistent とは併用しない
+ensure_pkg nftables
+$SUDO nft -c -f "$SRC_DIR/etc/nftables.conf"
+install_file etc/nftables.conf 755 || true
+$SUDO systemctl enable nftables.service
+# restart/stop は ExecStop の flush ruleset で tailscaled のルールまで消すため使わない
+if systemctl is-active -q nftables.service; then
+  $SUDO systemctl reload nftables.service
+else
+  $SUDO systemctl start nftables.service
+fi
+nft_input=$($SUDO nft list chain inet iris input 2>/dev/null || true)
+grep -q 'policy drop' <<<"$nft_input" || { echo "ERROR: nftables の inet iris が読み込まれていません" >&2; exit 1; }
+echo "  nftables: inet iris (input policy drop)"
+
+# ===== SMART 監視と ntfy 通知 =====
+ensure_pkg smartmontools curl
+if install_file etc/smartd.conf; then
+  $SUDO systemctl restart smartmontools.service
+fi
+install_file etc/smartmontools/run.d/50ntfy 755 || true
+# 通知先トピックは秘密扱い（リポジトリに入れない）。未作成なら推測困難な名前で作る
+if ! $SUDO test -f /etc/iris-ntfy.env; then
+  topic="iris-$(od -An -N8 -tx1 /dev/urandom | tr -d ' \n')"
+  echo "NTFY_TOPIC=$topic" | $SUDO install -m 600 -o root -g root /dev/stdin /etc/iris-ntfy.env
+  echo "[create] /etc/iris-ntfy.env"
+  # 秘密なので表示は作成時のみ（再確認: sudo cat /etc/iris-ntfy.env）
+  echo "  ntfy トピック: $topic（ntfy アプリで購読する）"
+else
+  echo "[skip] /etc/iris-ntfy.env"
 fi

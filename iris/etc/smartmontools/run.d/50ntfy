@@ -1,0 +1,12 @@
+#!/bin/sh
+# /etc/smartmontools/run.d/50ntfy
+# smartd が異常を検知したら ntfy.sh でスマホに通知する（smartd-runner から呼ばれる）
+# トピック名は推測されると通知を覗かれるため、リポジトリに入れず /etc/iris-ntfy.env に置く
+[ -r /etc/iris-ntfy.env ] || exit 0
+. /etc/iris-ntfy.env
+curl -fsS -m 10 \
+  -H "Title: [iris] ${SMARTD_SUBJECT:-smartd}" \
+  -H "Priority: high" \
+  -H "Tags: warning,floppy_disk" \
+  -d "${SMARTD_FULLMESSAGE:-${SMARTD_MESSAGE:-smartd から通知}}" \
+  "https://ntfy.sh/${NTFY_TOPIC}" >/dev/null
