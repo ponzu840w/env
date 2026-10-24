@@ -1,0 +1,7 @@
+# グローバルな gitattributes（core.attributesFile でこのファイルを直接参照する）
+# 改行コードは LF に統一し、LF だと動かない DOS 固有のものだけ CRLF にする
+* text=auto eol=lf
+
+# cmd.exe は LF だとラベルや goto が壊れる
+*.bat text eol=crlf
+*.cmd text eol=crlf

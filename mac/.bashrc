@@ -32,7 +32,7 @@ export PROMPT_COMMAND="history -a"          # 履歴の都度書き込み・読�
 shopt -s histappend                         # .bash_historyは追記する
 
 # ls colors
-eval `dircolors ~/.colorrc`
+eval "$(dircolors "$(dirname "${BASH_SOURCE[0]}")/.colorrc")"
 
 # alias
 alias ls='ls -FG --color=auto'

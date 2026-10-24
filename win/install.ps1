@@ -31,37 +31,58 @@ function Get-TmuxStub($rel) {
   "# $Marker`nsource-file '$p'`n"
 }
 
-# 配置先 = stubの内容
+# 配置先 = stubの内容（$null は撤去する旧stub）
 $stubs = [ordered]@{
   "$HOME\.vimrc"                    = Get-VimStub '.vimrc'
   "$HOME\.vimrc_local"              = Get-VimStub 'win\.vimrc_local'
   "$env:LOCALAPPDATA\nvim\init.vim" = Get-VimStub '.vimrc'
-  ($PROFILE.CurrentUserCurrentHost) = Get-PwshStub 'win\Microsoft.PowerShell_profile.ps1'
+  ($PROFILE.CurrentUserAllHosts)    = Get-PwshStub 'profile.ps1'
+  ($PROFILE.CurrentUserCurrentHost) = $null
   "$HOME\.tmux.conf"                = Get-TmuxStub '.tmux.conf'  # psmux
 }
 
-# skip: 同一 / install: なし / update: 古いstub / link: リポジトリへのリンク（旧方式） / conflict: 管理外
+# git のグローバル設定
+$gitConfig = [ordered]@{
+  'core.attributesFile' = (Join-Path $Repo '.config\git\attributes').Replace('\', '/')
+  'core.autocrlf'       = 'false'
+}
+
+# リポジトリ内を指すパスか
+function Test-InRepo($path) { (Resolve-RealPath $path).StartsWith("$Repo\", 'OrdinalIgnoreCase') }
+
+# skip: 同一・撤去済み / install: なし / update: 古いstub / link: リポジトリへのリンク（旧方式）
+# remove: 撤去する旧stub / conflict: 管理外
 function Get-Action($path, $content) {
+  $parent = Split-Path $path
+  if ((Test-Path -LiteralPath $parent) -and (Test-InRepo $parent)) { return 'conflict' }
   $item = Get-Item -LiteralPath $path -Force -ErrorAction Ignore
-  if (-not $item) { return 'install' }
+  if (-not $item) { return ($null -eq $content) ? 'skip' : 'install' }
   if ($item.LinkType) {
     $target = $item.ResolveLinkTarget($true)
-    if ($target.Exists -and (Resolve-RealPath $target.FullName).StartsWith("$Repo\", 'OrdinalIgnoreCase')) { return 'link' }
+    if ($target.Exists -and (Test-InRepo $target.FullName)) { return ($null -eq $content) ? 'remove' : 'link' }
     return 'conflict'
   }
   if ($item.PSIsContainer) { return 'conflict' }
   $current = [IO.File]::ReadAllText($path)
-  if ($current -ceq $content) { return 'skip' }
-  if ($current.Contains($Marker)) { return 'update' }
-  'conflict'
+  if (-not $current.Contains($Marker)) { return 'conflict' }
+  if ($null -eq $content) { return 'remove' }
+  ($current -ceq $content) ? 'skip' : 'update'
 }
 
-$plan = foreach ($path in $stubs.Keys) { [pscustomobject]@{ Action = Get-Action $path $stubs[$path]; Path = $path } }
+$plan = @(
+  foreach ($path in $stubs.Keys) {
+    [pscustomobject]@{ Action = Get-Action $path $stubs[$path]; Path = $path; Label = $path.Replace($HOME, '~') }
+  }
+  foreach ($key in $gitConfig.Keys) {
+    $current = git config --global --get $key
+    [pscustomobject]@{ Action = ($current -ceq $gitConfig[$key]) ? 'skip' : 'set'; Path = $key; Label = "git $key" }
+  }
+)
 
 Write-Host "repo: $Repo"
 foreach ($p in $plan) {
   $color = @{ skip = 'DarkGray'; conflict = 'Red' }[$p.Action] ?? 'Green'
-  Write-Host ('  {0,-8} {1}' -f $p.Action, $p.Path.Replace($HOME, '~')) -ForegroundColor $color
+  Write-Host ('  {0,-8} {1}' -f $p.Action, $p.Label) -ForegroundColor $color
 }
 if ($plan.Action -contains 'conflict') {
   Write-Host 'conflict のファイルを退避・削除してから再実行してください（変更なし）' -ForegroundColor Red
@@ -70,7 +91,9 @@ if ($plan.Action -contains 'conflict') {
 if ($DryRun) { exit }
 
 foreach ($p in $plan | Where-Object Action -ne 'skip') {
-  if ($p.Action -eq 'link') { Remove-Item -LiteralPath $p.Path -Force }
+  if ($p.Action -eq 'set') { git config --global $p.Path $gitConfig[$p.Path]; continue }
+  if ($p.Action -in 'link', 'remove') { Remove-Item -LiteralPath $p.Path -Force }
+  if ($p.Action -eq 'remove') { continue }
   New-Item -ItemType Directory -Force (Split-Path $p.Path) | Out-Null
   [IO.File]::WriteAllText($p.Path, $stubs[$p.Path], [Text.UTF8Encoding]::new($false))
 }

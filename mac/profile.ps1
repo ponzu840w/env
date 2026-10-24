@@ -1,46 +1,9 @@
-# $PROFILE
+# mac 固有の pwsh 設定（../profile.ps1 から読み込まれる）
 
 # ---------------------------------------------------------------------------
 #                                  プロンプト
 # ---------------------------------------------------------------------------
-function prompt
-{
-  # カレントディレクトリをシステムと同期
-  [System.IO.Directory]::SetCurrentDirectory($PWD.Path)
-
-  # tmuxにカレントディレクトリを送信
-  if ($env:TMUX)
-  {
-    $path = $ExecutionContext.SessionState.Path.CurrentFileSystemLocation.Path
-    Write-Host -NoNewline "`e]7;file://localhost$($path)`a"
-  }
-  # 直前のコマンドのステータス
-  $prevStatus = $?
-  $statusColor = if ($prevStatus) { 'DarkBlue' } else { 'Red' }
-  $statusSymbol = if ($prevStatus) { '✔' } else { '✘' }
-
-  # パス
-  $path = $PWD.Path
-  if ($path.StartsWith($HOME))
-  {
-    $path = $path.Replace($HOME, '~')
-  }
-
-  # ホスト名 (.local 等は削除)
-  $hostName = [System.Net.Dns]::GetHostName().Split('.')[0]
-  $userName = $env:USER
-
-  # --- 1行目: user@hostname:path ---
-  Write-Host "$userName@$hostName" -NoNewline -ForegroundColor DarkBlue
-  Write-Host ":" -NoNewline
-  Write-Host $path -ForegroundColor DarkGreen
-
-  # --- 2行目: ステータス + プロンプト ---
-  Write-Host "$statusSymbol ❯" -NoNewline -ForegroundColor $statusColor
-
-  # 戻り値
-  return " "
-}
+$PromptColor = 'DarkBlue'
 
 # ---------------------------------------------------------------------------
 #               iTerm2 Solarized Light/dark対応 PSReadLine色設定
@@ -90,20 +53,14 @@ foreach ($tool in @("coreutils", "findutils"))
 # ---------------------------------------------------------------------------
 if (Get-Command dircolors -ErrorAction SilentlyContinue)
 {
-  if (Test-Path ~/.colorrc)
+  $colorrc = Join-Path $PSScriptRoot .colorrc
+  if (Test-Path $colorrc)
   {
     # Bash用の表現 (LS_COLORS='...'; export...) から値を抽出
-    $colors = (dircolors -b ~/.colorrc)[0]
+    $colors = (dircolors -b $colorrc)[0]
     if ($colors -match "LS_COLORS='(.*?)'") { $env:LS_COLORS = $matches[1] }
   }
 }
-
-# ---------------------------------------------------------------------------
-#                                   History
-# --------------------------------------------------------------------------
-Set-PSReadLineOption -HistorySaveStyle SaveIncrementally
-Set-PSReadLineOption -MaximumHistoryCount 8192
-$MaximumHistoryCount = 8192
 
 # ---------------------------------------------------------------------------
 #                              Alias & Functions
@@ -118,14 +75,8 @@ function la { ls -A   @args }
 function l  { ls -C   @args }
 
 # ----- others -----
-function clip
-{
-  if ($MyInvocation.ExpectingInput) { $input | Set-Clipboard }
-  else                              { Get-Clipboard }
-}
 function nik { vim /Users/ponzu840w/.od/doc/nikki }
 function gay { vim /Users/ponzu840w/.od/doc/gay.txt }
-function gitlog { git log --decorate --oneline --graph }
 
 #$env:BLOG_ROOT = "/Users/ponzu840w/work/bbr/data-test"
 $env:BBR_REPO = "/Users/ponzu840w/work/bbr/data"
@@ -156,4 +107,3 @@ function rbenv
 #}
 
 function python  { python3.14 @args }
-
