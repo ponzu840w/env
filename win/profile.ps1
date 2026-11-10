@@ -23,3 +23,19 @@ function ytdloop {
     }
   }
 }
+
+# ---------------------------------------------------------------------------
+#             ssh 接続時は接続元 (mac/iTerm2) と同じ配色にする
+# ---------------------------------------------------------------------------
+if ($env:SSH_CONNECTION)
+{
+  $PromptColor = 'DarkBlue'
+  Set-PSReadLineOption -Colors @{
+    Default = "`e[39m"; ContinuationPrompt = "`e[39m"; Operator = "`e[2;39m"
+    Command = 'DarkBlue'; Keyword = 'DarkMagenta'; String = 'DarkCyan'
+    Variable = 'DarkRed'; Parameter = 'DarkYellow'; Type = 'DarkGreen'
+    Number = 'DarkBlue'; Member = 'Blue'; Comment = 'DarkGreen'
+    Emphasis = 'DarkCyan'; Error = 'Red'
+    InlinePrediction = 'Magenta'; ListPredictionTooltip = 'Green'
+  }
+}
